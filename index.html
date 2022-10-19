@@ -93,7 +93,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta property="description" itemprop="description" content="My final project"/>
 
 
-  <meta name="article:author" content="Your Name Here"/>
+  <meta name="article:author" content="Alma"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Gov 50 Final Project"/>
@@ -110,7 +110,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","description","output"]}},"value":[{"type":"character","attributes":{},"value":["Gov 50 Final Project"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Your Name Here"]}]}]},{"type":"character","attributes":{},"value":["My final project"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","description","output"]}},"value":[{"type":"character","attributes":{},"value":["Gov 50 Final Project"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Alma"]}]}]},{"type":"character","attributes":{},"value":["My final project"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -186,6 +186,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1258,15 +1259,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
-          var fn = $(this).children()[0]
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
           $(this).html(fn.shadowRoot.querySelector("sup"))
           $(this).id = fn.id
           fn.remove()
         }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -1465,7 +1472,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="index_files/header-attrs-2.17/header-attrs.js"></script>
+  <script src="index_files/header-attrs-2.16/header-attrs.js"></script>
   <script src="index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="index_files/popper-2.6.0/popper.min.js"></script>
   <link href="index_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -1486,7 +1493,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Gov 50 Final Project","description":"My final project","authors":[{"author":"Your Name Here","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}]}
+{"title":"Gov 50 Final Project","description":"My final project","authors":[{"author":"Alma","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1504,16 +1511,20 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 <div class="d-byline">
   
-  Your Name Here
+  Alma
   
 
 </div>
 
 <div class="d-article">
 <h2 id="project-thoughts">Project thoughts</h2>
-<p>I am interested in exploring data related to…</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>I am interested in exploring data related to unemployment and length of time to get employment for immigrants in Denmark versus Sweden, and how language and education levels may affect that.
+In this strand, I wonder if any levels of declining trust in society have happened in these countries, since trust is such a vital component in the high tax Scandinavian socialized countries. I am writing my thesis on this topic and perhaps could use some of my final gov data work for my thesis.</p>
+<p>OR look at 2020 election data and do something apart from my thesis since I will dedicate enough time to that next year, and try to understand further how Biden got won half the amount of counties than Obama and Hillary, or the anomaly of Trump receiving the most votes from minorities as a Republican in 50 years. And could focus on a particular city to see what the effects of mail-in ballots are, how often signature verification is required, and to address the claims of non-citizens and ‘dead people voting,’ though I do not think the CCES2020 data included these variables. A percentage of the US’ population has declined faith in elections and we know faith in elections are the backbone of democracy, so research into the hot topic to address and assuage people’s concern could be helpful. But I don’t want to investigate something of a scope that is too large for this project.</p>
+<p>OR Look at Venezuela. My mom is from Venezuela and I have visited 4 times but not recently. I could look at where immigrants have left to, knowing personally some to the US, Canada, Colombia, Ecuador, and Spain. I could look at the impacts of what all the people leaving the country has done to Venezuela and if it has left it in a position which is harder to bounce back from, while understanding you can’t force people to stay, and if there is evidence of immigrants returning.</p>
+<p>OR on Guns and US public perceptions of the second amendment in contrast through generations (Gen Z vs Baby Boomers for example), and why that may be. And how if it is guns for Ukrainians it may be percieved differently than guns for Americans.
+May talk to my TF to decide what topic.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

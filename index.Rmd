@@ -1,6 +1,6 @@
 ---
 title: "Gov 50 Final Project"
-author: "Your Name Here"
+author: "Alma"
 description: "My final project"
 output:
   distill::distill_article:
@@ -11,4 +11,12 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to...
+I am interested in exploring data related to unemployment and length of time to get employment for immigrants in Denmark versus Sweden, and how language and education levels may affect that. 
+In this strand, I wonder if any levels of declining trust in society have happened in these countries, since trust is such a vital component in the high tax Scandinavian socialized countries. I am writing my thesis on this topic and perhaps could use some of my final gov data work for my thesis.
+
+OR look at 2020 election data and do something apart from my thesis since I will dedicate enough time to that next year, and try to understand further how Biden got won half the amount of counties than Obama and Hillary, or the anomaly of Trump receiving the most votes from minorities as a Republican in 50 years. And could focus on a particular city to see what the effects of mail-in ballots are, how often signature verification is required, and to address the claims of non-citizens and 'dead people voting,' though I do not think the CCES2020 data included these variables. A  percentage of the US' population has declined faith in elections and we know faith in elections are the backbone of democracy, so research into the hot topic to address and assuage people's concern could be helpful. But I don't want to investigate something of a scope that is too large for this project.
+
+OR Look at Venezuela. My mom is from Venezuela and I have visited 4  times but not recently. I could look at where immigrants have left to, knowing personally some to the US, Canada, Colombia, Ecuador, and Spain. I could look at the impacts of what all the people leaving the country has done to Venezuela and if it has left it in a position which is harder to bounce back from, while understanding you can't force people to stay, and if there is evidence of immigrants returning. 
+
+OR on Guns and US public perceptions of the second amendment in contrast through generations (Gen Z vs Baby Boomers for example), and why that may be. And how if it is guns for Ukrainians it may be percieved differently than guns for Americans.
+May talk to my TF to decide what topic. 
