@@ -7,9 +7,8 @@ output:
     self_contained: false
 ---
 
-
 #State your research question.
-Is there a difference of time in Sweden vs Denmark for migrants to find employment, and does this affect voting voting patterns in the countries respectively?  
+Is there a difference of time in Sweden vs Denmark for migrants to find employment, and does this affect voting  patterns in the countries respectively?  
 #Formulate a hypothesis related to the research question. 
 My hypothesis is that Sweden, since it accepted more immigrants per its population than Denmark, may have a harder time finding all immigrants work or as quickly, which could demonstrate difficulties in intergration, and thus could help to explain the growth of the Sweden Democrats, the anti-immigration party, in the recent election, while Denmark hasn’t faced as extreme of issues so there politics have remained more stable.
 #This hypothesis should be rooted in some sort of theory. In other words, you need to present a plausible story why the hypothesis might be true. Often, this is in the form of a behaviorial or institutional explanation. As social scientists, we are not interested in idiosyncratic explanations; we want to understand systematic patterns and relationships!
