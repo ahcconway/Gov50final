@@ -8,11 +8,11 @@ output:
 ---
 
 #State your research question.
-Is there a difference of time in Sweden vs Denmark for migrants to find employment, and does this affect voting  patterns in the countries respectively?  
+Is there a difference of time in Sweden vs Denmark for migrants to find employment, and does this affect voting  patterns in the countries respectively?
 #Formulate a hypothesis related to the research question. 
 My hypothesis is that Sweden, since it accepted more immigrants per its population than Denmark, may have a harder time finding all immigrants work or as quickly, which could demonstrate difficulties in intergration, and thus could help to explain the growth of the Sweden Democrats, the anti-immigration party, in the recent election, while Denmark hasn’t faced as extreme of issues so there politics have remained more stable.
 #This hypothesis should be rooted in some sort of theory. In other words, you need to present a plausible story why the hypothesis might be true. Often, this is in the form of a behaviorial or institutional explanation. As social scientists, we are not interested in idiosyncratic explanations; we want to understand systematic patterns and relationships!
-In countries with large welfare states, when certain parts of the population are unemployed and thus cannot contribute to the welfare state and cause parallel societies, it may deteriorate trust in the safety net or in the parties who allowed the situation to occur. 
+In countries with large welfare states, when certain parts of the population are unemployed and thus cannot contribute to the welfare state and cause parallel societies, it may deteriorate trust in the safety net or in the parties who allowed the situation to occur. Test
 #Describe your explanatory variable(s) of interest and how it is measured. Importantly, we need to observe variation in this variable in order to study it!
 The explanatory variables of interest are the time from arrival to when an immigrant finds employment, and perhaps this is dependent on the migrants country of origin. 
 #Describe your outcome variable of interest and how it is measured
