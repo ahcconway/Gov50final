@@ -21,9 +21,7 @@ Swedishpolls <- SwedishPolls::get_polls()
 
 ```
 
-```{r}
-left_join()
-```
+
 
 ```{r}
 DPY <- danishpolls |>
@@ -52,11 +50,11 @@ as.data.frame(data$dataset$dimension)
 ```{r}
 data$data
 ```
-empty data fram
-add row one at a time <-
+
 
 ```{r, warning=FALSE}
-labo31 <- data.frame(to = rep(NA, n), from = rep(NA, n), unemployment = rep(NA, n), year = rep(NA, n), y2029 = rep(NA,n), backg = rep(NA, n))
+labo <- data.frame(to = rep(NA, n), from = rep(NA, n), unemployment = rep(NA, n), year = rep(NA, n), y2029 = rep(NA,n), backg = rep(NA,  n))
+
 n = length(data$data)
 
 for(i in 1:n){
@@ -66,12 +64,14 @@ for(i in 1:n){
   
   new_row = c(data$data[[i]]$key[1], data$data[[i]]$key[2], new_i, data$data[[i]]$key[4], data$data[[i]]$key[6], data$data[[i]]$key[3])
   
-  labo31[i,] = new_row
+  labo[i,] = new_row
 
     
 }
 
-labo32 <- as_tibble(labo31) 
+labo <- as_tibble(labo) 
+
+
 ```
 new_i = as.double(data$data[[i]]$values[1])
     
@@ -84,18 +84,18 @@ LABO30: Proportion of the population who does not work or study (per cent) by re
 
 
 x = year
-```{r}
-labo32 |>
+
+labo |>
 ggplot(aes(x = year)) +
 geom_boxplot(aes(y= unemployment))
 
-```
+
 ```{r}
 
-labo31 = na.omit(labo31)
+labo = na.omit(labo)
 
 
-labo31
+labo
 ```
 ```{r}
 aex(x =unemployment)
@@ -103,16 +103,21 @@ aex(x =unemployment)
 
 
 ```{r}
-labo31$unemployment = as.numeric(labo31$unemployment)
+labo$unemployment = as.numeric(labo$unemployment)
 
-labo31
+labo
 ```
 ```{r}
-labo31 |>
-  group_by(to) |>
-  group_by(year) |>
-  boxplot(aex(x =unemployment))
-boxplot(aex(y =year)) +
+hw <- labo |>
+  filter(y2029 =="2029Y", backg == "FBTWOFBP", from =="AFR") |> 
+ggplot( mapping = aes(x = to,
+                     y = unemployment)) +
+  geom_boxplot() +
+  labs(x= "Receiving Country", y= "Proportion of the population who does not work or study (per cent)", title = "Denmark v Sweden Unemployment Rate of immigrants from Africa who are Foreign born with two foreign born parents ")
+  
+hw
+
   
 ```
 
+ ggplot( data = labo, mapping = aes(x = year, y = unemployment))
