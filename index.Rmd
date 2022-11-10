@@ -21,9 +21,122 @@ My outcome variable is trust and voting changes if more acceptant of immigration
 There is data for Sweden of increased voting for the anti-immigration party. However the time until employment has shrank according to the Prime Minister. So if the correlation is not direct, does this mean the impact previously of larger times until employment has affected voting decisions today. 
 As for Denmark, the recent elections have not happened yet, but I would hypothesize the time until employment is shorter since they have stronger criteria for immigration and thus may be able to integrate the migrants more easily, and there has not been the growth of an anti-immigration party because the other Danish parties have addressed the topic more satisfactory. 
 
-Still Struggling to find the exact data on both countries but  considering :
-https://www.scb.se/stativ
-https://pubmed.ncbi.nlm.nih.gov/31105501/
-https://github.com/erikgahner/polls.git
-https://github.com/MansMeg/SwedishPolls.git
+---
+title: "Gov50final"
+author: "alma"
+date: "10/19/2022"
+output: html_document
+---
+
+
+``` {r}
+
+library(tidyverse) 
+
+
+library(dplyr)
+
+#danishpolls <- read_csv("index_files/polls.csv")
+#danishpolls
+#remotes::install_github("MansMeg/SwedishPolls", subdir = "RPackage")
+#Swedishpolls <- SwedishPolls::get_polls()
+
+
+
+```
+
+
+
+```{r}
+#DPY <- danishpolls |>
+ # filter(year == c(2016, 2019, 2021)) 
+
+#DPY|>
+ # ggplot(aes(x = party_a)) +
+ # geom_bar()
+
+
+```
+
+```{r}
+library(rjson)
+```
+
+```{r}
+data <- fromJSON(file="LABO30_20221109-001127.json")
+
+#json_data <- as.data.frame(data)
+#print(json_data)
+```
+```{r}
+as.data.frame(data$dataset$dimension)
+```
+```{r}
+#data$data
+```
+
+
+```{r, warning=FALSE}
+labo <- data.frame(to = rep(NA, n), from = rep(NA, n), unemployment = rep(NA, n), year = rep(NA, n), y2029 = rep(NA,n), backg = rep(NA,  n))
+
+n = length(data$data)
+
+for(i in 1:n){
+  
+ 
+  new_i = as.double(data$data[[i]]$values[1])
+  
+  new_row = c(data$data[[i]]$key[1], data$data[[i]]$key[2], new_i, data$data[[i]]$key[4], data$data[[i]]$key[6], data$data[[i]]$key[3])
+  
+  labo[i,] = new_row
+
+    
+}
+
+labo <- as_tibble(labo) 
+
+
+```
+new_i = as.double(data$data[[i]]$values[1])
+    
+    new_row = c(data$data[[i]]$key[1], data$data[[i]]$key[2], new_i, data$data[[i]]$key[4], data$data[[i]]$key[6], data$data[[i]]$key[3])
+    
+    labo31[i,] = new_row
+immcountry <- data.frame(age=rep("age", n), to = rep("reporting country", n), from = "country background", yearsofunemployment = "time")
+
+LABO30: Proportion of the population who does not work or study (per cent) by reporting country, country background, population category, time, sex and age
+
+
+x = year
+
+labo |>
+ggplot(aes(x = year)) +
+geom_boxplot(aes(y= unemployment))
+
+
+```{r}
+labo = na.omit(labo)
+labo
+```
+```{r}
+#aex(x =unemployment)
+```
+
+
+```{r}
+labo$unemployment = as.numeric(labo$unemployment)
+
+labo
+```
+```{r}
+hw <- labo |>
+  filter(y2029 =="2029Y", backg == "FBTWOFBP", from =="AFR") |> 
+ggplot( mapping = aes(x = to, y = unemployment)) +
+  geom_boxplot(color = "darkorchid3") +
+  labs(x= "Receiving Country", y= "Proportion of the population who does not work or study", title = "Denmark v Sweden Unemployment Rate of immigrants from Africa") 
+  
+hw
+```
+who are Foreign born with two foreign born parents
+ ggplot( data = labo, mapping = aes(x = year, y = unemployment))
 
