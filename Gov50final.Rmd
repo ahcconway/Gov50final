@@ -5,8 +5,114 @@ date: "10/19/2022"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+``` {r}
+
+library(tidyverse) 
+danishpolls <- read_csv("index_files/polls.csv")
+danishpolls
+
+library(dplyr)
+
+remotes::install_github("MansMeg/SwedishPolls", subdir = "RPackage")
+Swedishpolls <- SwedishPolls::get_polls()
+
+
 
 ```
- #
+
+```{r}
+left_join()
+```
+
+```{r}
+DPY <- danishpolls |>
+  filter(year == c(2016, 2019, 2021)) 
+
+DPY|>
+  ggplot(aes(x = party_a)) +
+  geom_bar()
+
+DPY
+```
+
+```{r}
+library(rjson)
+```
+
+```{r}
+data <- fromJSON(file="LABO30_20221109-001127.json")
+
+#json_data <- as.data.frame(data)
+#print(json_data)
+```
+```{r}
+as.data.frame(data$dataset$dimension)
+```
+```{r}
+data$data
+```
+empty data fram
+add row one at a time <-
+
+```{r, warning=FALSE}
+labo31 <- data.frame(to = rep(NA, n), from = rep(NA, n), unemployment = rep(NA, n), year = rep(NA, n), y2029 = rep(NA,n), backg = rep(NA, n))
+n = length(data$data)
+
+for(i in 1:n){
+  
+ 
+  new_i = as.double(data$data[[i]]$values[1])
+  
+  new_row = c(data$data[[i]]$key[1], data$data[[i]]$key[2], new_i, data$data[[i]]$key[4], data$data[[i]]$key[6], data$data[[i]]$key[3])
+  
+  labo31[i,] = new_row
+
+    
+}
+
+labo32 <- as_tibble(labo31) 
+```
+new_i = as.double(data$data[[i]]$values[1])
+    
+    new_row = c(data$data[[i]]$key[1], data$data[[i]]$key[2], new_i, data$data[[i]]$key[4], data$data[[i]]$key[6], data$data[[i]]$key[3])
+    
+    labo31[i,] = new_row
+immcountry <- data.frame(age=rep("age", n), to = rep("reporting country", n), from = "country background", yearsofunemployment = "time")
+
+LABO30: Proportion of the population who does not work or study (per cent) by reporting country, country background, population category, time, sex and age
+
+
+x = year
+```{r}
+labo32 |>
+ggplot(aes(x = year)) +
+geom_boxplot(aes(y= unemployment))
+
+```
+```{r}
+
+labo31 = na.omit(labo31)
+
+
+labo31
+```
+```{r}
+aex(x =unemployment)
+```
+
+
+```{r}
+labo31$unemployment = as.numeric(labo31$unemployment)
+
+labo31
+```
+```{r}
+labo31 |>
+  group_by(to) |>
+  group_by(year) |>
+  boxplot(aex(x =unemployment))
+boxplot(aex(y =year)) +
+  
+```
+
