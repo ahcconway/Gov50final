@@ -26,7 +26,7 @@ dest_country, year)) |>
  + geom_smooth(color = "indianred1") 
  
 ```{r}
-alma |>
+alma |> 
   filter(origin == "Africa") |> 
   ggplot(aes(x = `year`, y = `fb_pct_2par`)) +
   geom_point(mapping = aes(color = `dest_country`)) +
