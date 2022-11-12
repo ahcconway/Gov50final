@@ -32,8 +32,8 @@ visualization
 
 ```
 ```{r}
-#ate<- alma |> 
+#ate<- alma |> n
  # mean(cb_pct_2par)
-#Denmark - Sweden
+#Denmark - Sweden 
 ```
 
