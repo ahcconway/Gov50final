@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.16/header-attrs.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/repository.txt","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["alma.csv","Gov50final_files/figure-html/unnamed-chunk-2-1.png","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/Data:Polls.csv.webloc","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/header-attrs-2.16/header-attrs.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/polls.csv","index_files/Polls.csv.textClipping","index_files/Polls.html","index_files/popper-2.6.0/popper.min.js","index_files/repository.txt","index_files/SwedishPolls-master.zip","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","LABO30_20221109-000506.csv","LABO30_20221109-001127.json","LABO30_20221110-192419.xlsm - LABO30.csv","LABO30_20221110-192419.xlsx","WORK02_20221108-210411.txt","WORK02_20221108-210528.htm","WORK02_20221108-210541.json"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1517,25 +1517,52 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<p>#State your research question.
-Is there a difference of time in Sweden vs Denmark for migrants to find employment, and does this affect voting voting patterns in the countries respectively?<br />
-#Formulate a hypothesis related to the research question.
-My hypothesis is that Sweden, since it accepted more immigrants per its population than Denmark, may have a harder time finding all immigrants work or as quickly, which could demonstrate difficulties in intergration, and thus could help to explain the growth of the Sweden Democrats, the anti-immigration party, in the recent election, while Denmark hasn’t faced as extreme of issues so there politics have remained more stable.
-#This hypothesis should be rooted in some sort of theory. In other words, you need to present a plausible story why the hypothesis might be true. Often, this is in the form of a behaviorial or institutional explanation. As social scientists, we are not interested in idiosyncratic explanations; we want to understand systematic patterns and relationships!
-In countries with large welfare states, when certain parts of the population are unemployed and thus cannot contribute to the welfare state and cause parallel societies, it may deteriorate trust in the safety net or in the parties who allowed the situation to occur.
-#Describe your explanatory variable(s) of interest and how it is measured. Importantly, we need to observe variation in this variable in order to study it!
-The explanatory variables of interest are the time from arrival to when an immigrant finds employment, and perhaps this is dependent on the migrants country of origin.
-#Describe your outcome variable of interest and how it is measured
-My outcome variable is trust and voting changes if more acceptant of immigration or less, and see if there is a correlation between success of immigrant integration (largely signified by employment) and voting behaviors in Sweden versus Denmark.
-#What observed pattern in the data would provide support for your hypothesis? More importantly, what observed pattern would disprove your hypothesis?
-There is data for Sweden of increased voting for the anti-immigration party. However the time until employment has shrank according to the Prime Minister. So if the correlation is not direct, does this mean the impact previously of larger times until employment has affected voting decisions today.
-As for Denmark, the recent elections have not happened yet, but I would hypothesize the time until employment is shorter since they have stronger criteria for immigration and thus may be able to integrate the migrants more easily, and there has not been the growth of an anti-immigration party because the other Danish parties have addressed the topic more satisfactory.</p>
-<p>Still Struggling to find the exact data on both countries but considering :
-<a href="https://www.scb.se/stativ" class="uri">https://www.scb.se/stativ</a>
-<a href="https://pubmed.ncbi.nlm.nih.gov/31105501/" class="uri">https://pubmed.ncbi.nlm.nih.gov/31105501/</a>
-<a href="https://github.com/erikgahner/polls.git" class="uri">https://github.com/erikgahner/polls.git</a>
-<a href="https://github.com/MansMeg/SwedishPolls.git" class="uri">https://github.com/MansMeg/SwedishPolls.git</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/infer'>infer</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>alma</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/readr/man/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"alma.csv"</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>alma</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 6 × 4
+  dest_country  year origin  fb_pct_2par
+  &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;
+1 Denmark       2016 Africa         51.7
+2 Denmark       2016 Somalia        49.9
+3 Denmark       2016 Iraq           32.6
+4 Denmark       2016 Iran           42.9
+5 Denmark       2016 Syria          75  
+6 Denmark       2017 Africa         46  </code></pre>
+</div>
+<p>group_by(c(
+dest_country, year)) |&gt;</p>
+<p>group_by(dest_country) |&gt;</p>
+<ul>
+<li>geom_smooth(color = “indianred1”)</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>alma</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>origin</span> <span class='op'>==</span> <span class='st'>"Africa"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>`year`</span>, y <span class='op'>=</span> <span class='va'>`fb_pct_2par`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_point.html'>geom_point</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='va'>`dest_country`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>"Unemployment as Proportion / 100"</span>, title <span class='op'>=</span> <span class='st'>"Sweden vs Denmark Proportion of youth immigrant population who does not work or study"</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#ate&lt;- alma |&gt; </span></span>
+<span> <span class='co'># mean(cb_pct_2par)</span></span>
+<span><span class='co'>#Denmark - Sweden</span></span></code></pre>
+</div>
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
