@@ -9,13 +9,14 @@ output: html_document
 ``` {r}
 
 library(tidyverse) 
-danishpolls <- read_csv("index_files/polls.csv")
-danishpolls
+
 
 library(dplyr)
 
-remotes::install_github("MansMeg/SwedishPolls", subdir = "RPackage")
-Swedishpolls <- SwedishPolls::get_polls()
+#danishpolls <- read_csv("index_files/polls.csv")
+#danishpolls
+#remotes::install_github("MansMeg/SwedishPolls", subdir = "RPackage")
+#Swedishpolls <- SwedishPolls::get_polls()
 
 
 
@@ -24,14 +25,14 @@ Swedishpolls <- SwedishPolls::get_polls()
 
 
 ```{r}
-DPY <- danishpolls |>
-  filter(year == c(2016, 2019, 2021)) 
+#DPY <- danishpolls |>
+ # filter(year == c(2016, 2019, 2021)) 
 
-DPY|>
-  ggplot(aes(x = party_a)) +
-  geom_bar()
+#DPY|>
+ # ggplot(aes(x = party_a)) +
+ # geom_bar()
 
-DPY
+
 ```
 
 ```{r}
@@ -91,14 +92,11 @@ geom_boxplot(aes(y= unemployment))
 
 
 ```{r}
-
 labo = na.omit(labo)
-
-
 labo
 ```
 ```{r}
-aex(x =unemployment)
+#aex(x =unemployment)
 ```
 
 
@@ -110,14 +108,30 @@ labo
 ```{r}
 hw <- labo |>
   filter(y2029 =="2029Y", backg == "FBTWOFBP", from =="AFR") |> 
-ggplot( mapping = aes(x = to,
-                     y = unemployment)) +
-  geom_boxplot() +
-  labs(x= "Receiving Country", y= "Proportion of the population who does not work or study (per cent)", title = "Denmark v Sweden Unemployment Rate of immigrants from Africa who are Foreign born with two foreign born parents ")
-  
+ggplot( mapping = aes(x = to, y = unemployment)) +
+  geom_boxplot(color = "darkorchid3") +
+  labs(x= "Receiving Country", y= "Proportion of the population who does not work or study", title = "Denmark v Sweden Unemployment Rate of immigrants from Africa") 
 hw
 
+
+```
+who are Foreign born with two foreign born parents
+ ggplot( data = labo, mapping = aes(x = year, y = unemployment))
+
+      	2016	2017	2018
+Denmark	51.7	46.0	39.2
+Sweden	47.0	40.5	34.4
+
+```{r}
+data <- data.frame( Denmark = c(51.7, 46, 39.2), Sweden =c(47, 40.5, 34.4), row.names = c(2016,2017,2018)) 
+
   
+ggplot(data = data, mapping = aes(x = c(2016,2017,2018)))
+
+
 ```
 
- ggplot( data = labo, mapping = aes(x = year, y = unemployment))
+
+```
+
+

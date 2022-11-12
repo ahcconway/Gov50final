@@ -7,136 +7,35 @@ output:
     self_contained: false
 ---
 
-#State your research question.
-Is there a difference of time in Sweden vs Denmark for migrants to find employment, and does this affect voting  patterns in the countries respectively?
-#Formulate a hypothesis related to the research question. 
-My hypothesis is that Sweden, since it accepted more immigrants per its population than Denmark, may have a harder time finding all immigrants work or as quickly, which could demonstrate difficulties in intergration, and thus could help to explain the growth of the Sweden Democrats, the anti-immigration party, in the recent election, while Denmark hasn’t faced as extreme of issues so there politics have remained more stable.
-#This hypothesis should be rooted in some sort of theory. In other words, you need to present a plausible story why the hypothesis might be true. Often, this is in the form of a behaviorial or institutional explanation. As social scientists, we are not interested in idiosyncratic explanations; we want to understand systematic patterns and relationships!
-In countries with large welfare states, when certain parts of the population are unemployed and thus cannot contribute to the welfare state and cause parallel societies, it may deteriorate trust in the safety net or in the parties who allowed the situation to occur. Test
-#Describe your explanatory variable(s) of interest and how it is measured. Importantly, we need to observe variation in this variable in order to study it!
-The explanatory variables of interest are the time from arrival to when an immigrant finds employment, and perhaps this is dependent on the migrants country of origin. 
-#Describe your outcome variable of interest and how it is measured
-My outcome variable is trust and voting changes if more acceptant of immigration or less, and see if there is a correlation between success of immigrant integration (largely signified by employment) and voting behaviors in Sweden versus Denmark. 
-#What observed pattern in the data would provide support for your hypothesis? More importantly, what observed pattern would disprove your hypothesis?
-There is data for Sweden of increased voting for the anti-immigration party. However the time until employment has shrank according to the Prime Minister. So if the correlation is not direct, does this mean the impact previously of larger times until employment has affected voting decisions today. 
-As for Denmark, the recent elections have not happened yet, but I would hypothesize the time until employment is shorter since they have stronger criteria for immigration and thus may be able to integrate the migrants more easily, and there has not been the growth of an anti-immigration party because the other Danish parties have addressed the topic more satisfactory. 
+```{r, setup}
+library(tidyverse)
+library(infer)
 
----
-title: "Gov50final"
-author: "alma"
-date: "10/19/2022"
-output: html_document
----
+alma <- read_csv("alma.csv")
 
-
-``` {r}
-
-library(tidyverse) 
-
-
-library(dplyr)
-
-#danishpolls <- read_csv("index_files/polls.csv")
-#danishpolls
-#remotes::install_github("MansMeg/SwedishPolls", subdir = "RPackage")
-#Swedishpolls <- SwedishPolls::get_polls()
-
-
-
-```
-
-
-
-```{r}
-#DPY <- danishpolls |>
- # filter(year == c(2016, 2019, 2021)) 
-
-#DPY|>
- # ggplot(aes(x = party_a)) +
- # geom_bar()
-
-
-```
-
-```{r}
-library(rjson)
-```
-
-```{r}
-data <- fromJSON(file="LABO30_20221109-001127.json")
-
-#json_data <- as.data.frame(data)
-#print(json_data)
 ```
 ```{r}
-as.data.frame(data$dataset$dimension)
-```
-```{r}
-#data$data
+head(alma)
 ```
 
+  group_by(c(
+dest_country, year)) |>
 
-```{r, warning=FALSE}
-labo <- data.frame(to = rep(NA, n), from = rep(NA, n), unemployment = rep(NA, n), year = rep(NA, n), y2029 = rep(NA,n), backg = rep(NA,  n))
-
-n = length(data$data)
-
-for(i in 1:n){
-  
+ group_by(dest_country) |>
  
-  new_i = as.double(data$data[[i]]$values[1])
-  
-  new_row = c(data$data[[i]]$key[1], data$data[[i]]$key[2], new_i, data$data[[i]]$key[4], data$data[[i]]$key[6], data$data[[i]]$key[3])
-  
-  labo[i,] = new_row
-
-    
-}
-
-labo <- as_tibble(labo) 
-
-
-```
-new_i = as.double(data$data[[i]]$values[1])
-    
-    new_row = c(data$data[[i]]$key[1], data$data[[i]]$key[2], new_i, data$data[[i]]$key[4], data$data[[i]]$key[6], data$data[[i]]$key[3])
-    
-    labo31[i,] = new_row
-immcountry <- data.frame(age=rep("age", n), to = rep("reporting country", n), from = "country background", yearsofunemployment = "time")
-
-LABO30: Proportion of the population who does not work or study (per cent) by reporting country, country background, population category, time, sex and age
-
-
-x = year
-
-labo |>
-ggplot(aes(x = year)) +
-geom_boxplot(aes(y= unemployment))
-
-
+ + geom_smooth(color = "indianred1") 
+ 
 ```{r}
-labo = na.omit(labo)
-labo
+alma |>
+  filter(origin == "Africa") |> 
+  ggplot(aes(x = `year`, y = `fb_pct_2par`)) +
+  geom_point(mapping = aes(color = `dest_country`)) +
+  labs(y = "Unemployment as Proportion / 100", title = "Sweden vs Denmark Proportion of youth immigrant population who does not work or study")
+
 ```
 ```{r}
-#aex(x =unemployment)
+#ate<- alma |> 
+ # mean(cb_pct_2par)
+#Denmark - Sweden
 ```
-
-
-```{r}
-labo$unemployment = as.numeric(labo$unemployment)
-
-labo
-```
-```{r}
-hw <- labo |>
-  filter(y2029 =="2029Y", backg == "FBTWOFBP", from =="AFR") |> 
-ggplot( mapping = aes(x = to, y = unemployment)) +
-  geom_boxplot(color = "darkorchid3") +
-  labs(x= "Receiving Country", y= "Proportion of the population who does not work or study", title = "Denmark v Sweden Unemployment Rate of immigrants from Africa") 
-  
-hw
-```
-who are Foreign born with two foreign born parents
- ggplot( data = labo, mapping = aes(x = year, y = unemployment))
 
