@@ -22,13 +22,13 @@ head(alma)
 
  
 ```{r}
- alma |> 
+ visualization <- alma |> 
   filter(origin == "Africa") |> 
   ggplot(aes(x = `year`, y = `fb_pct_2par`)) +
   geom_point(mapping = aes(color = `dest_country`)) +
   labs(y = "Unemployment as Proportion / 100", title = "Sweden vs Denmark Proportion of youth immigrant population who does not work or study")
 
-
+visualization
 
 ```
 ```{r}
