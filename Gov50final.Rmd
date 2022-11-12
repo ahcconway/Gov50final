@@ -31,9 +31,5 @@ head(alma)
 visualization
 
 ```
-```{r}
-#ate<- alma |> nn
- # mean(cb_pct_2par)
-#Denmark - Sweden 
-```
+
 
