@@ -1,7 +1,7 @@
 ---
 title: "Gov 50 Final Project"
 author: "Alma Conway"
-description: "My final project"
+description: "Milestone 3"
 output:
   distill::distill_article:
     self_contained: false
@@ -14,6 +14,7 @@ library(infer)
 alma <- read_csv("alma.csv")
 
 ```
+
 ```{r}
 head(alma)
 ```
@@ -21,13 +22,12 @@ head(alma)
 
  
 ```{r}
-visualization <- alma |> 
+ visualization <- alma |> 
   filter(origin == "Africa") |> 
   ggplot(aes(x = `year`, y = `fb_pct_2par`)) +
   geom_point(mapping = aes(color = `dest_country`)) +
   labs(y = "Unemployment as Proportion / 100", title = "Sweden vs Denmark Proportion of youth immigrant population who does not work or study")
 
 visualization
-```
-test
 
+```
