@@ -1,7 +1,10 @@
+
+Maybe intergration 
+Denmark other ways of intergrating people not nessesarily based on being employed
 ---
 title: "Gov 50 Final Project"
 author: "Alma Conway"
-description: "Milestone 3"
+description: "My final project"
 output:
   distill::distill_article:
     self_contained: false
@@ -11,29 +14,81 @@ output:
 library(tidyverse)
 library(infer)
 
-alma <- read_csv("alma.csv")
+work <- read_csv("alma.csv") |>
+    mutate(binary = if_else(dest_country == "Denmark", 1, 0))
+
 
 ```
-
 ```{r}
-head(alma)
+head(work)
 ```
 
 
  
 ```{r}
- visualization <- alma |> 
+visualization <- work |> 
   filter(origin == "Africa") |> 
   ggplot(aes(x = `year`, y = `fb_pct_2par`)) +
   geom_point(mapping = aes(color = `dest_country`)) +
-  labs(y = "Unemployment as Proportion / 100", title = "Proportion of youth immigrant population who does not work or study")
+  labs(y = "Unemployment as Proportion / 100", title = "Sweden vs Denmark Proportion of youth immigrant population who does not work or study")
 
 visualization
+```
+```{r}
+viz2 <- visualization <- work |> 
+  filter(binary == 1) |>
+  ggplot(aes(x = `year`, y = `fb_pct_2par`)) +
+  geom_col(mapping = aes(fill = `origin`), position = "dodge") +
+  labs(x = "Year", y = "Unemployment as Proportion / 100", title = "Denmark Proportion of 20-29 immigrant population by origin who does not work or study")
+  
+
+viz2
+```
+```{r}
+viz3 <- visualization <- work |> 
+  filter(binary == 0) |>
+  ggplot(aes(x = `year`, y = `fb_pct_2par`)) +
+  geom_col(mapping = aes(fill = `origin`), position = "dodge") +
+  labs(x = "Year", y = "Unemployment as Proportion / 100", title = "Sweden Youth Immigrant pop by Region of Origin")
+  
+
+viz3
+```
+
+
+```{r}
+
+library(stargazer)
+
+ lm <- lm(fb_pct_2par ~ dest_country + origin, work)
+
+summary(lm)
+stargazer(lm, type = "text")
 
 ```
 
-Maybe intergration 
-Denmark other ways of intergrating people not nessesarily based on being employed
+```{r}
+ work |>
+  group_by(dest_country) |>
+summarize(unemp = mean(fb_pct_2par)) |> 
+  pivot_wider(names_from  = dest_country, values_from = unemp)|>
+  mutate(ATE = `Denmark` - `Sweden`) |>
+  knitr::kable(digits = 3, caption = " ATE = Difference in Unemployment amoung 20-29 year old immigrants who are foreign born with two foreign born parents in")
+
+
+```
+Could this difference be due to random chance? 
+
+```{r}
+ate_boots <- work|>
+specify(fb_pct_2par ~ dest_country) |>
+generate(reps = 1000, type = "bootstrap") |>
+  calculate(stat = "diff in means", order = c("Denmark", "Sweden"))|>
+  visualize()
+
+ ate_boots
+```
+
 
 
 
