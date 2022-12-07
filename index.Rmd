@@ -10,7 +10,7 @@ Sweden and Denmark are two seemingly similar countries, but they have differed i
 
 The source of my data was Nordic Statistics (National Statistical Institutes)
 
-https://pxweb.nordicstatistics.org/pxweb/en/Nordic%20Statistics/Nordic%20Statistics__Integration%20and%20migration__Labour%20market/LABO30.px/
+###### https://pxweb.nordicstatistics.org/pxweb/en/Nordic%20Statistics/Nordic%20Statistics__Integration%20and%20migration__Labour%20market/LABO30.px/
 
  Its Latest update was 3/17/2021, however the data unfortunately only goes to 2018.
  I filtered for select countries for background:
@@ -36,16 +36,26 @@ visualization <- work |>
   filter(origin == "Africa") |> 
   ggplot(aes(x = `year`, y = `fb_pct_2par`)) +
   geom_point(mapping = aes(color = `dest_country`)) +
-  labs(y = "Unemployment as Proportion / 100", title = "Sweden vs Denmark Unemployed Youth Immigrant Pop.") + geom_smooth(color = "yellow", alpha = .05) 
+  labs(y = "Unemployment as Proportion / 100", 
+       title = "Sweden vs Denmark Unemployed Youth Immigrant Pop.") + 
+  geom_smooth(color = "yellow", alpha = .05) 
 
 visualization
 ```
+
+```{r}
+png(filename = "bargraph.png")
+```
+    
+
 ```{r}
 viz2 <- visualization <- work |> 
   filter(binary == 1) |>
   ggplot(aes(x = `year`, y = `fb_pct_2par`)) +
-  geom_col(mapping = aes(fill = `origin`), position = "dodge") +
-  labs(x = "Year", y = "Unemployment as Proportion / 100", title = "Denmark Prop. of Immigrant Youth pop. w/ No Work or Study")
+  geom_col(mapping = aes(fill = `origin`), 
+           position = "dodge") +
+  labs(x = "Year", 
+       y = "Unemployment as Proportion / 100", title = "Denmark Prop. of Immigrant Youth pop. w/ No Work or Study")
   
 
 viz2
@@ -53,9 +63,12 @@ viz2
 ```{r}
 viz3 <- visualization <- work |> 
   filter(binary == 0) |>
-  ggplot(aes(x = `year`, y = `fb_pct_2par`)) +
+  ggplot(aes(x = `year`, 
+             y = `fb_pct_2par`)) +
   geom_col(mapping = aes(fill = `origin`), position = "dodge") +
-  labs(x = "Year", y = "Unemployment as Proportion / 100", title = "Sweden Prop. of Immigrant Youth pop. w/ No Work or Study")
+  labs(x = "Year", 
+       y = "Unemployment as Proportion / 100", 
+       title = "Sweden Prop. of Immigrant Youth pop. w/ No Work or Study")
 
 viz3
 ```
@@ -80,23 +93,27 @@ stargazer(lm, type = "text")
 
 ```
 
-
+Specificaly the immigrants are "foreign born with two foreign born parents"
 ```{r}
  work |>
   group_by(dest_country) |>
 summarize(unemp = mean(fb_pct_2par)) |> 
   pivot_wider(names_from  = dest_country, values_from = unemp)|>
   mutate(ATE = `Denmark` - `Sweden`) |>
-  knitr::kable(digits = 3, caption = " ATE = Difference in Unemployment amoung 20-29 year old immigrants who are foreign born with two foreign born parents in")
+  knitr::kable(digits = 3, 
+               caption = " ATE = Difference in Unemployment amoung 20-29 year old immigrants")
 
 ```
 Could this difference be due to random chance? 
 
 ```{r}
+set.seed(02138)
+
 ate_boots <- work|>
 specify(fb_pct_2par ~ dest_country) |>
 generate(reps = 1000, type = "bootstrap") |>
-  calculate(stat = "diff in means", order = c("Denmark", "Sweden"))|>
+  calculate(stat = "diff in means", 
+            order = c("Denmark", "Sweden"))|>
   visualize()
 
  ate_boots
