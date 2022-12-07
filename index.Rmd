@@ -6,6 +6,14 @@ output:
   distill::distill_article:
     self_contained: false
 ---
+Sweden and Denmark are two seemingly similar countries, but they have differed in terms of immigration policy. I wondered if their policy has an effect on unemployment of immigrants of various backgrounds. 
+
+The source of my data was Nordic Statistics (National Statistical Institutes)
+
+https://pxweb.nordicstatistics.org/pxweb/en/Nordic%20Statistics/Nordic%20Statistics__Integration%20and%20migration__Labour%20market/LABO30.px/
+
+ Its Latest update was 3/17/2021, however the data unfortunately only goes to 2018.
+ I filtered for select countries for background:
 
 ```{r, setup}
 library(tidyverse)
@@ -21,13 +29,14 @@ head(work)
 ```
 
 
+
  
 ```{r}
 visualization <- work |> 
   filter(origin == "Africa") |> 
   ggplot(aes(x = `year`, y = `fb_pct_2par`)) +
   geom_point(mapping = aes(color = `dest_country`)) +
-  labs(y = "Unemployment as Proportion / 100", title = "Sweden vs Denmark Proportion of youth immigrant population who does not work or study")
+  labs(y = "Unemployment as Proportion / 100", title = "Sweden vs Denmark Unemployed Youth Immigrant Pop.") + geom_smooth(color = "yellow", alpha = .05) 
 
 visualization
 ```
@@ -36,7 +45,7 @@ viz2 <- visualization <- work |>
   filter(binary == 1) |>
   ggplot(aes(x = `year`, y = `fb_pct_2par`)) +
   geom_col(mapping = aes(fill = `origin`), position = "dodge") +
-  labs(x = "Year", y = "Unemployment as Proportion / 100", title = "Denmark Proportion of 20-29 immigrant population by origin who does not work or study")
+  labs(x = "Year", y = "Unemployment as Proportion / 100", title = "Denmark Prop. of Immigrant Youth pop. w/ No Work or Study")
   
 
 viz2
@@ -46,10 +55,17 @@ viz3 <- visualization <- work |>
   filter(binary == 0) |>
   ggplot(aes(x = `year`, y = `fb_pct_2par`)) +
   geom_col(mapping = aes(fill = `origin`), position = "dodge") +
-  labs(x = "Year", y = "Unemployment as Proportion / 100", title = "Sweden Youth Immigrant pop by Region of Origin")
-  
+  labs(x = "Year", y = "Unemployment as Proportion / 100", title = "Sweden Prop. of Immigrant Youth pop. w/ No Work or Study")
 
 viz3
+```
+```{r}
+lmalt<- lm(fb_pct_2par ~ dest_country + origin, work)
+
+modelsummary::modelsummary(lmalt,
+                           statistic = c("s.e. = {std.error}",
+                                         "p = {p.value}"),
+                           gof_map = c("nobs", "r.squared", "adj.r.squared"))
 ```
 
 
@@ -64,6 +80,7 @@ stargazer(lm, type = "text")
 
 ```
 
+
 ```{r}
  work |>
   group_by(dest_country) |>
@@ -71,7 +88,6 @@ summarize(unemp = mean(fb_pct_2par)) |>
   pivot_wider(names_from  = dest_country, values_from = unemp)|>
   mutate(ATE = `Denmark` - `Sweden`) |>
   knitr::kable(digits = 3, caption = " ATE = Difference in Unemployment amoung 20-29 year old immigrants who are foreign born with two foreign born parents in")
-
 
 ```
 Could this difference be due to random chance? 
