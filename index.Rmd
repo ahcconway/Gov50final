@@ -167,7 +167,7 @@ cor.test(work1$GDP, work1$fb_pct_2par)
 There is a medium negative correlation between GDP and unemployment rate, which makes sense - as the countries GDP increases, the unemployment rate would decrease. 
 
 
-##Conclusion 
+## Conclusion 
 
 In conclusion, from the years 2016-2018, Denmark had higher rates of unemployment, contrary to my initial belief that Sweden would because it had taken in more people. This difference does not seem to random, as a simulation-based bootstrap distribution, still indicates there would be a difference of Denmark having higher unemployment rates of immigrants during this time. In both Denmark and Sweden, youth immigrants from Syria have the hardest time finding employment as shown in the vizualizations, and people originating from Somalia as second highest unemployment rates, which these are the two countries with the lowest GDP. There is a moderate correlation between GDP and unemployment rate, but the multiple linear regression model was unclear and not statistically significant, perhaps in part due to the low number of data points in this set, which was a major limitation.
   
