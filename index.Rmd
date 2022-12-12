@@ -1,7 +1,7 @@
 ---
 title: "Gov 50 Final Project"
 author: "Alma Conway"
-description: "Comparing 2016-2018 Immigration to Denmark and Sweden from Middle East and African Countries"
+description: "A Comparative Data Analysis of 2016-2018 Youth Unemployment - Immigration to Denmark and Sweden from Middle Eastern and African Countries"
 output:
   distill::distill_article:
     self_contained: false
