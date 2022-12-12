@@ -18,7 +18,7 @@ Sweden and Denmark are two seemingly similar countries, but they have differed i
   
   The explanatory variables of interest are comparing the rate of unemployment for immigrants aged 20-29, born in a foreign country with two foreign-born parents in Sweden versus Denmark. The dependent variable are the migrants country of origin and its GDP. I hypothesize there is a correlation between the origin countries' GDP and the success of employment of those people in Sweden and Denmark. 
  
-##Data
+## Data
 
 The source of my data was Nordic Statistics (National Statistical Institutes)
 
